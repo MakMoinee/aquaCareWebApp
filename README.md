@@ -5,7 +5,7 @@
 - 2. Download composer and install in your system:  `https://getcomposer.org/download/`
 - 3. Install git bash if you didn't install it yet on your system: `https://git-scm.com/download/win`
 - 4. Clone this repository using git bash, open a directory where you want to put your repository and open git bash by right clicking on the directory and type this command: `git clone https://github.com/MakMoinee/aquaCareWebApp.git`
-- 5. After cloning the repository, a folder named artBrosWebApp will be available, go to that folder
+- 5. After cloning the repository, a folder named aquaCareWebApp will be available, go to that folder
 - 6. Open the command prompt by typing cmd in the address bar, see picture below:
 - ![Address Bar](AddressBar.png)
 - 7. Type in the cmd : `php artisan serve --port 8443`
