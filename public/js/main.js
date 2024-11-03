@@ -18,17 +18,24 @@
 
     // Sticky Navbar
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 45) {
-            $('.nav-bar').addClass('sticky-top');
+        if ($(this).scrollTop() > 300) {
+            $('.sticky-top').addClass('bg-primary shadow-sm').css('top', '0px');
         } else {
-            $('.nav-bar').removeClass('sticky-top');
+            $('.sticky-top').removeClass('bg-primary shadow-sm').css('top', '-150px');
         }
+    });
+
+
+    // Facts counter
+    $('[data-toggle="counter-up"]').counterUp({
+        delay: 10,
+        time: 2000
     });
     
     
     // Back to top button
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) {
+        if ($(this).scrollTop() > 100) {
             $('.back-to-top').fadeIn('slow');
         } else {
             $('.back-to-top').fadeOut('slow');
@@ -40,41 +47,18 @@
     });
 
 
-    // Header carousel
-    $(".header-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1500,
+    // Testimonials carousel
+    $(".testimonial-carousel").owlCarousel({
         items: 1,
+        autoplay: true,
+        smartSpeed: 1000,
         dots: true,
         loop: true,
-        nav : true,
+        nav: true,
         navText : [
             '<i class="bi bi-chevron-left"></i>',
             '<i class="bi bi-chevron-right"></i>'
         ]
-    });
-
-
-    // Testimonials carousel
-    $(".testimonial-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1000,
-        margin: 24,
-        dots: false,
-        loop: true,
-        nav : true,
-        navText : [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
-        ],
-        responsive: {
-            0:{
-                items:1
-            },
-            992:{
-                items:2
-            }
-        }
     });
     
 })(jQuery);
