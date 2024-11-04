@@ -105,7 +105,11 @@ class UserDetectionController extends Controller
 
             $detection = DB::table('detections')
                 ->where('detectionID', '=', $id)->get();
-            
+
+            $myArr = $detection->toArray();
+            if (count($myArr) == 0) {
+                return redirect("/user_detection");
+            }
 
             return view('user.result', ['detections' => $detection]);
         }
