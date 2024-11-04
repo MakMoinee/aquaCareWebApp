@@ -66,12 +66,13 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
                         <a href="/" class="nav-item nav-link active">Home</a>
-                        <a href="#about" class="nav-item nav-link">About</a>
-                        <a href="#service" class="nav-item nav-link">Services</a>
-                        <a href="#faqs" class="nav-item nav-link">FAQs</a>
+                        <a href="/#about" class="nav-item nav-link">About</a>
+                        <a href="/#service" class="nav-item nav-link">Services</a>
+                        <a href="/#faqs" class="nav-item nav-link">FAQs</a>
+                        <a href="/#team" class="nav-item nav-link">Our Team</a>
                         <a href="/user_detection" class="nav-item nav-link">Detection</a>
                         <a style="cursor: pointer" class="nav-item nav-link" data-bs-toggle="modal"
-                            data-bs-target="#loginAccountModal">Logout</a>
+                            data-bs-target="#logoutModal">Logout</a>
                     </div>
                 </div>
             </nav>
@@ -319,105 +320,7 @@
     <!-- FAQs Start -->
 
 
-    <!-- Team Start -->
-    <div class="container-fluid bg-light py-5">
-        <div class="container py-5">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="btn btn-sm border rounded-pill text-primary px-3 mb-3">Our Team</div>
-                    <h1 class="mb-4">Dedicated Experts Behind Aqua Care</h1>
-                    <p class="mb-4">Our team is passionate about fish health and laser-focused on one mission:
-                        providing accurate white spot detection to help fish enthusiasts keep their aquatic companions
-                        safe and healthy.</p>
-                </div>
-                <div class="col-lg-7">
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <div class="row g-4">
-                                <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
-                                    <div class="team-item bg-white text-center rounded p-4 pt-0">
-                                        <img class="img-fluid rounded-circle p-4" src="img/team-1.jpg"
-                                            alt="">
-                                        <h5 class="mb-0">Boris Johnson</h5>
-                                        <small>Founder & CEO</small>
-                                        <div class="d-flex justify-content-center mt-3">
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-facebook-f"></i></a>
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-twitter"></i></a>
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-instagram"></i></a>
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-linkedin-in"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 wow fadeIn" data-wow-delay="0.5s">
-                                    <div class="team-item bg-white text-center rounded p-4 pt-0">
-                                        <img class="img-fluid rounded-circle p-4" src="img/team-2.jpg"
-                                            alt="">
-                                        <h5 class="mb-0">Adam Crew</h5>
-                                        <small>Executive Manager</small>
-                                        <div class="d-flex justify-content-center mt-3">
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-facebook-f"></i></a>
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-twitter"></i></a>
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-instagram"></i></a>
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-linkedin-in"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 pt-md-4">
-                            <div class="row g-4">
-                                <div class="col-12 wow fadeIn" data-wow-delay="0.3s">
-                                    <div class="team-item bg-white text-center rounded p-4 pt-0">
-                                        <img class="img-fluid rounded-circle p-4" src="img/team-3.jpg"
-                                            alt="">
-                                        <h5 class="mb-0">Kate Winslet</h5>
-                                        <small>Co Founder</small>
-                                        <div class="d-flex justify-content-center mt-3">
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-facebook-f"></i></a>
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-twitter"></i></a>
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-instagram"></i></a>
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-linkedin-in"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 wow fadeIn" data-wow-delay="0.7s">
-                                    <div class="team-item bg-white text-center rounded p-4 pt-0">
-                                        <img class="img-fluid rounded-circle p-4" src="img/team-4.jpg"
-                                            alt="">
-                                        <h5 class="mb-0">Cody Gardner</h5>
-                                        <small>Project Manager</small>
-                                        <div class="d-flex justify-content-center mt-3">
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-facebook-f"></i></a>
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-twitter"></i></a>
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-instagram"></i></a>
-                                            <a class="btn btn-square btn-primary m-1" href=""><i
-                                                    class="fab fa-linkedin-in"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Team End -->
+    @include('team')
 
 
     @include('footer')
@@ -439,146 +342,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <div class="modal fade" id="loginAccountModal" tabindex="-1" role="dialog"
-        aria-labelledby="loginAccountModalTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginAccountModalTitle">Login Your Account</h5>
-                    <button type="button" class="btn btn-outline-dark close" data-bs-dismiss="modal"
-                        aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="/" method="post" autocomplete="off">
-                    @csrf
-                    <div class="modal-body">
-
-                        <div class="form-group mt-2">
-                            <label for="username" class="text-dark">Username:</label>
-                            <br>
-                            <input required type="text" name="username" id="" class="form-control">
-                        </div>
-                        <div class="form-group mt-2">
-                            <label for="password" class="text-dark">Password:</label>
-                            <br>
-                            <input required type="password" name="password" id="password2" class="form-control">
-                        </div>
-                        <div class="form-group mt-2">
-                            <input type="checkbox" id="showPassword2" onclick="togglePasswordVisibility2()">
-                            <label for="showPassword" class="text-dark">Show Password</label>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="btnLogin"
-                            value="yes">Proceed</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="createAccountModal" tabindex="-1" role="dialog"
-        aria-labelledby="createAccountModalTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createAccountModalTitle">Create Your Account</h5>
-                    <button type="button" class="btn btn-outline-dark close" data-bs-dismiss="modal"
-                        aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="/" method="post" autocomplete="off">
-                    @csrf
-                    <div class="modal-body">
-
-                        <div class="form-group mt-2">
-                            <label for="firstName" class="text-dark">First Name:</label>
-                            <br>
-                            <input required type="text" name="firstName" id="" class="form-control">
-                        </div>
-                        <div class="form-group mt-2">
-                            <label for="middleName" class="text-dark">Middle Name:</label>
-                            <br>
-                            <input type="text" name="middleName" id="" class="form-control">
-                        </div>
-                        <div class="form-group mt-2">
-                            <label for="lastName" class="text-dark">Last Name:</label>
-                            <br>
-                            <input required type="text" name="lastName" id="" class="form-control">
-                        </div>
-                        <div class="form-group mt-2">
-                            <label for="address" class="text-dark">Address:</label>
-                            <br>
-                            <textarea required name="address" id="" cols="30" rows="5" class="form-control">
-
-                            </textarea>
-                        </div>
-                        <div class="form-group mt-2">
-                            <label for="birthDate" class="text-dark">Birth Date:</label>
-                            <br>
-                            <input required type="date" name="birthDate" id="" class="form-control">
-                        </div>
-                        <div class="form-group mt-2">
-                            <label for="gender" class="text-dark">Gender:</label>
-                            <br>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input type="radio" name="gender" value="male"
-                                            aria-label="Radio button for selecting male">
-                                    </div>
-                                </div>
-                                <span class="text-dark" style="margin-left: 5px;">Male</span>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input type="radio" name="gender" value="female"
-                                            aria-label="Radio button for selecting female">
-                                    </div>
-                                </div>
-                                <span class="text-dark" style="margin-left: 5px;">Female</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group mt-2">
-                            <label for="phoneNumber" class="text-dark">Phone Number:</label>
-                            <br>
-                            <input required type="number" name="phoneNumber" id="" class="form-control">
-                        </div>
-                        <div class="form-group mt-2">
-                            <label for="username" class="text-dark">Username:</label>
-                            <br>
-                            <input required type="text" name="username" id="" class="form-control">
-                        </div>
-                        <div class="form-group mt-2">
-                            <label for="password" class="text-dark">Password:</label>
-                            <br>
-                            <input required type="password" name="password" id="password" class="form-control">
-                        </div>
-                        <div class="form-group mt-2">
-                            <label for="confimpass" class="text-dark">Confirm Password:</label>
-                            <br>
-                            <input required type="password" name="confimpass" id="confimpass" class="form-control">
-                        </div>
-                        <div class="form-group mt-2">
-                            <input type="checkbox" id="showPassword" onclick="togglePasswordVisibility()">
-                            <label for="showPassword" class="text-dark">Show Password</label>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="btnCreateAccount"
-                            value="yes">Proceed</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    @include('modal.logout')
 
     <script>
         function togglePasswordVisibility2() {
@@ -602,19 +366,19 @@
             }
         }
     </script>
-    @if (session()->pull('successCreateAccount'))
+    @if (session()->pull('successLogin'))
         <script>
             setTimeout(() => {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Successfully Created Account',
+                    title: 'Login Successfully',
                     showConfirmButton: false,
                     timer: 800
                 });
             }, 500);
         </script>
-        {{ session()->forget('successCreateAccount') }}
+        {{ session()->forget('successLogin') }}
     @endif
     @if (session()->pull('existingUsername'))
         <script>
