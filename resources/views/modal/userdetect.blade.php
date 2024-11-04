@@ -31,6 +31,12 @@
                         <input id="mFile" type="file" style="display: none;" name="imagePath"
                             onchange="previewImage(event)">
                     </div>
+                    <div class="form-group text-dark">
+                        <h6 style="text-align: justify;">
+                            <b>Note:</b> Please make sure that you have provided a good quality image of your fish. Any
+                            other than the fish will produce ambigous result
+                        </h6>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
