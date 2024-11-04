@@ -95,7 +95,21 @@ class UserDetectionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        if (session()->exists('users')) {
+            $user = session()->pull('users');
+            session()->put('users', $user);
+
+            if ($user['userType'] != 'user') {
+                return redirect("/");
+            }
+
+            $detection = DB::table('detections')
+                ->where('detectionID', '=', $id)->get();
+            
+
+            return view('user.result', ['detections' => $detection]);
+        }
+        return redirect("/");
     }
 
     /**

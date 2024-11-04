@@ -133,7 +133,8 @@
                                                     <td>
                                                         @if ($item->results)
                                                         @else
-                                                            <button class="btn btn-success text-white">
+                                                            <button class="btn btn-success text-white"
+                                                                onclick="startDetect({{ $item->detectionID }})">
                                                                 Start Detect
                                                             </button>
                                                         @endif
@@ -200,6 +201,10 @@
     @include('modal.logout')
     @include('modal.userdetect')
     <script>
+        function startDetect(id) {
+            window.location.href = `/user_detection/${id}`;
+        }
+
         function deleteFish(id, imagePath) {
             let deleteForm = document.getElementById('deleteForm');
             deleteForm.action = `/user_detection/${id}`;
