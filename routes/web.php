@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\UserHomeController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource("/", WelcomeController::class);
+Route::get("/logout", [LogoutController::class, 'index']);
+Route::get('/user_home', [UserHomeController::class, 'index']);

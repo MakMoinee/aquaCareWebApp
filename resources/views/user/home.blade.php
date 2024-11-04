@@ -31,6 +31,14 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        .sticky-top {
+            top: 0px !important;
+            transition: .5s;
+            background-color: #1363c6 !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,7 +53,7 @@
 
 
     <!-- Navbar Start -->
-    <div class="container-fluid sticky-top">
+    <div class="container-fluid bg-primary shadow-sm sticky-top">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-dark p-0">
                 <a href="/" class="navbar-brand">
@@ -60,40 +68,16 @@
                         <a href="/" class="nav-item nav-link active">Home</a>
                         <a href="#about" class="nav-item nav-link">About</a>
                         <a href="#service" class="nav-item nav-link">Services</a>
-                        <a style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#createAccountModal"
-                            class="nav-item nav-link">Signup</a>
+                        <a href="#faqs" class="nav-item nav-link">FAQs</a>
+                        <a href="/user_detection" class="nav-item nav-link">Detection</a>
                         <a style="cursor: pointer" class="nav-item nav-link" data-bs-toggle="modal"
-                            data-bs-target="#loginAccountModal">Login</a>
+                            data-bs-target="#loginAccountModal">Logout</a>
                     </div>
                 </div>
             </nav>
         </div>
     </div>
     <!-- Navbar End -->
-
-
-    <!-- Hero Start -->
-    <div class="container-fluid pt-5 bg-primary hero-header mb-5">
-        <div class="container pt-5">
-            <div class="row g-5 pt-5">
-                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
-                    <div class="btn btn-sm border rounded-pill text-white px-3 mb-3 animated slideInRight">Aqua Care
-                    </div>
-                    <h1 class="display-4 text-white mb-4 animated slideInRight">Effortless Fish Health Monitoring</h1>
-                    <p class="text-white mb-4 animated slideInRight">Our AI-driven tool makes it simple to check for
-                        white spots. Snap, upload, and protect your fish!</p>
-                    <a data-bs-target="#loginAccountModal" data-bs-toggle="modal"
-                        class="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInRight">Login</a>
-                    <a data-bs-toggle="modal" data-bs-target="#createAccountModal"
-                        class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">Signup</a>
-                </div>
-                <div class="col-lg-6 align-self-end text-center text-lg-end">
-                    <img class="img-fluid" src="img/hero-img.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Hero End -->
 
 
     <!-- About Start -->
@@ -179,67 +163,10 @@
     <!-- Service End -->
 
 
-    <!-- Feature Start -->
-    <div class="container-fluid bg-primary feature pt-5">
-        <div class="container pt-5">
-            <div class="row g-5">
-                <div class="col-lg-6 align-self-center mb-md-5 pb-md-5 wow fadeIn" data-wow-delay="0.3s">
-                    <div class="btn btn-sm border rounded-pill text-white px-3 mb-3">Why Choose Us</div>
-                    <h1 class="text-white mb-4">Your Fish's Health is Our Priority</h1>
-                    <p class="text-light mb-4">With a sole purpose of detecting white spot disease, Aqua Care is
-                        crafted to deliver top-notch results, giving you peace of mind with every scan</p>
-                    <div class="d-flex align-items-center text-white mb-3">
-                        <div class="btn-sm-square bg-white text-primary rounded-circle me-3">
-                            <i class="fa fa-check"></i>
-                        </div>
-                        <span>Tailored for Fish Enthusiasts</span>
-                    </div>
-                    <div class="d-flex align-items-center text-white mb-3">
-                        <div class="btn-sm-square bg-white text-primary rounded-circle me-3">
-                            <i class="fa fa-check"></i>
-                        </div>
-                        <span>Fast and Easy-to-Use</span>
-                    </div>
-                    <div class="d-flex align-items-center text-white mb-3">
-                        <div class="btn-sm-square bg-white text-primary rounded-circle me-3">
-                            <i class="fa fa-check"></i>
-                        </div>
-                        <span>White Spot Detection</span>
-                    </div>
-                    <div class="row g-4 pt-3">
-                        <div class="col-sm-6">
-                            <div class="d-flex rounded p-3" style="background: rgba(256, 256, 256, 0.1);">
-                                <i class="fa fa-users fa-3x text-white"></i>
-                                <div class="ms-3">
-                                    <h2 class="text-white mb-0" data-toggle="counter-up">9999</h2>
-                                    <p class="text-white mb-0">Happy Clients</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="d-flex rounded p-3" style="background: rgba(256, 256, 256, 0.1);">
-                                <i class="fa fa-check fa-3x text-white"></i>
-                                <div class="ms-3">
-                                    <h2 class="text-white mb-0" data-toggle="counter-up">9999</h2>
-                                    <p class="text-white mb-0">Project Complete</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 align-self-end text-center text-md-end wow fadeIn" data-wow-delay="0.5s">
-                    <img class="img-fluid" src="img/feature.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Feature End -->
-
-
 
 
     <!-- FAQs Start -->
-    <div class="container-fluid py-5">
+    <div class="container-fluid py-5" id="faqs">
         <div class="container py-5">
             <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 500px;">
                 <div class="btn btn-sm border rounded-pill text-primary px-3 mb-3">Popular FAQs</div>

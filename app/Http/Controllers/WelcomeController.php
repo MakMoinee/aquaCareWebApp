@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SystemUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class WelcomeController extends Controller
 {
@@ -11,6 +14,14 @@ class WelcomeController extends Controller
      */
     public function index()
     {
+        if (session()->exists('users')) {
+            $user = session()->pull('users');
+            session()->put('users', $user);
+
+            if ($user['userType'] == 'user') {
+                return redirect("/user_home");
+            }
+        }
         return view('welcome');
     }
 
@@ -27,7 +38,59 @@ class WelcomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->btnCreateAccount) {
+            if ($request->password == $request->confirmpass) {
+                session()->put("errorPasswordNotMatch", true);
+                return redirect("/");
+            }
+            $query = json_decode(DB::table('system_users')->where('username', '=', $request->username)->get(), true);
+            if (count($query) > 0) {
+                session()->put("existingUsername", true);
+            } else {
+                $users = new SystemUser();
+                $users->firstName = $request->firstName;
+                $users->middleName = $request->middleName;
+                $users->lastName = $request->lastName;
+                $users->address = $request->address;
+                $users->gender = $request->gender;
+                $users->birthDate = $request->birthDate;
+                $users->phoneNumber = $request->phoneNumber;
+                $users->username = $request->username;
+                $users->userType = "user";
+                $users->password = Hash::make($request->password);
+                $isSave = $users->save();
+                if ($isSave) {
+                    session()->put("successCreateAccount", true);
+                } else {
+                    session()->put("errorCreateAccount", true);
+                }
+            }
+        } else if ($request->btnLogin) {
+            $queryResult = DB::table('system_users')->where('username', '=', $request->username)->get();
+            if ($queryResult->count() > 0) {
+                $user = array();
+                foreach ($queryResult as $q) {
+                    if (password_verify($request->password, $q->password)) {
+                        $user = json_decode(json_encode($q), true);
+                    }
+                }
+                if (count($user) > 0) {
+
+                    if ($user['userType'] == 'user') {
+                        session()->put("successLogin", true);
+                        session()->put("users", $user);
+                        return redirect('/user_home');
+                    } else {
+                        session()->put("unauthorizedLogin", true);
+                    }
+                } else {
+                    session()->put("errorLogin", true);
+                }
+            } else {
+                session()->put("wrongUsernameOrPass", true);
+            }
+        }
+        return redirect("/");
     }
 
     /**
