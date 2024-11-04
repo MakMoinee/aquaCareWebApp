@@ -40,3 +40,30 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="deleteFishModal" tabindex="-1" role="dialog" aria-labelledby="deleteFishModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteFishModalTitle">Attention</h5>
+                <button type="button" class="btn btn-outline-dark close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="deleteForm" action="/user_detection" method="post" autocomplete="off">
+                @method('delete')
+                @csrf
+                <div class="modal-body">
+                    <h5>Are You Sure You Want To Delete This Record?</h5>
+                    <input type="hidden" name="imagePath" value="" id="deleteImagePath">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger" name="btnDeleteFish" value="yes">Yes,
+                        Proceed</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

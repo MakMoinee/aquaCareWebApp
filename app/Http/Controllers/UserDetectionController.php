@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Detections;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class UserDetectionController extends Controller
 {
@@ -115,8 +117,36 @@ class UserDetectionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, Request $request)
     {
-        //
+        if (session()->exists('users')) {
+            $user = session()->pull('users');
+            session()->put('users', $user);
+
+            if ($user['userType'] != 'user') {
+                return redirect("/");
+            }
+
+            if ($request->btnDeleteFish) {
+
+                $deleteCount = DB::table('detections')->where('detectionID', '=', $id)->delete();
+                if ($deleteCount > 0) {
+                    try {
+                        $originalDirectoryPath = $request->imagePath;
+                        if ($originalDirectoryPath) {
+                            $destinationPath = $_SERVER['DOCUMENT_ROOT']  . $originalDirectoryPath;
+                            File::delete($destinationPath);
+                        }
+                    } catch (Exception $e1) {
+                    }
+
+                    session()->put("successDelete", true);
+                } else {
+                    session()->put("errorDelete", true);
+                }
+            }
+            return redirect("/user_detection");
+        }
+        return redirect("/");
     }
 }

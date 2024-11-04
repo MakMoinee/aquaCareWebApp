@@ -74,7 +74,7 @@
                         <a href="/#service" class="nav-item nav-link">Services</a>
                         <a href="/#faqs" class="nav-item nav-link">FAQs</a>
                         <a href="/#team" class="nav-item nav-link">Our Team</a>
-                        <a href="/user_detection" class="nav-item nav-link active" >Detection</a>
+                        <a href="/user_detection" class="nav-item nav-link active">Detection</a>
                         <a style="cursor: pointer" class="nav-item nav-link" data-bs-toggle="modal"
                             data-bs-target="#logoutModal">Logout</a>
                     </div>
@@ -141,7 +141,13 @@
                                                     <td class="text-center">
                                                         {{ $item->remarks }}
                                                     </td>
-                                                    <td></td>
+                                                    <td>
+                                                        <button class="btn btn-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteFishModal"
+                                                            onclick="deleteFish({{ $item->detectionID }},'{{ $item->imagePath }}')">
+                                                            <img src="/delete.svg" alt="" srcset="">
+                                                        </button>
+                                                    </td>
                                                     <td class="text-center"></td>
                                                 </tr>
                                             @endforeach
@@ -194,6 +200,14 @@
     @include('modal.logout')
     @include('modal.userdetect')
     <script>
+        function deleteFish(id, imagePath) {
+            let deleteForm = document.getElementById('deleteForm');
+            deleteForm.action = `/user_detection/${id}`;
+
+            let deleteImagePath = document.getElementById('deleteImagePath');
+            deleteImagePath.value = imagePath;
+        }
+
         function previewImage(event) {
             var files = event.currentTarget.files;
             if (files && files[0]) {
@@ -261,18 +275,32 @@
         </script>
         {{ session()->forget('imageRequired') }}
     @endif
-    @if (session()->pull('wrongUsernameOrPass'))
+    @if (session()->pull('successDelete'))
+        <script>
+            setTimeout(() => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Successfully Deleted Fish Detail Record',
+                    showConfirmButton: false,
+                    timer: 800
+                });
+            }, 500);
+        </script>
+        {{ session()->forget('successDelete') }}
+    @endif
+    @if (session()->pull('errorDelete'))
         <script>
             setTimeout(() => {
                 Swal.fire({
                     position: 'center',
                     icon: 'error',
-                    title: 'Wrong Username or Password',
+                    title: 'Failed To Delete Fish Detail, Please Try Again',
                     showConfirmButton: true,
                 });
             }, 500);
         </script>
-        {{ session()->forget('wrongUsernameOrPass') }}
+        {{ session()->forget('errorDelete') }}
     @endif
 </body>
 
