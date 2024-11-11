@@ -135,7 +135,7 @@
                                                         @else
                                                             <button class="btn btn-success text-white"
                                                                 onclick="startDetect({{ $item->detectionID }})">
-                                                                Start Detect
+                                                                View Result
                                                             </button>
                                                         @endif
                                                     </td>

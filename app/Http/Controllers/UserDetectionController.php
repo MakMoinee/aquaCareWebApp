@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Detections;
 use Exception;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -26,6 +27,7 @@ class UserDetectionController extends Controller
             $detections = DB::table('detections')
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
+
 
             return view('user.detection', ['detections' => $detections]);
         }
@@ -105,13 +107,17 @@ class UserDetectionController extends Controller
 
             $detection = DB::table('detections')
                 ->where('detectionID', '=', $id)->get();
-
             $myArr = $detection->toArray();
             if (count($myArr) == 0) {
                 return redirect("/user_detection");
             }
 
-            return view('user.result', ['detections' => $detection]);
+            
+            $this->callApi($myArr[0]->imagePath);
+
+
+
+            return view('user.result', ['detections' => $myArr[0]]);
         }
         return redirect("/");
     }
@@ -166,5 +172,20 @@ class UserDetectionController extends Controller
             return redirect("/user_detection");
         }
         return redirect("/");
+    }
+
+    private function callApi(string $imagePath): void
+    {
+        $client = new Client();
+        $response = $client->post('http://localhost:5000/detect', [
+            'multipart' => [
+                [
+                    'name' => 'image',
+                    'contents' => 'http://localhost:8443' . $imagePath . ''
+                ],
+            ]
+        ]);
+
+        // var_dump($response->getBody()->getContents());
     }
 }

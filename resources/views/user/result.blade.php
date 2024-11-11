@@ -54,7 +54,7 @@
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="show container">
-            
+
             <div class="row">
                 <div class="col-lg-12">
                     <center>
@@ -108,8 +108,111 @@
         <div class="container py-5">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-12 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="btn btn-sm border rounded-pill text-primary px-3 mb-3">Detection</div>
-                    <h1 class="mb-4">Upload Photos of Your Fish</h1>
+                    <h1 class="mb-4">Detection Results</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 d-flex">
+                    <img id="imgResult" class="me-5" style="height: 450px; width: 350px;"
+                        src="{{ $detections->imagePath }}" alt="" srcset="">
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12 content" id="content">
+                                <h1>Result: <b id="resultText" class="text-danger">White Spot Detected</b></h1>
+                                <div id="content2">
+                                    <h2>Next Steps for Managing White Spot Disease</h2>
+
+                                    <div class="alert">
+                                        <p><strong>White spots detected on your fish. This may indicate Ich disease.
+                                                Follow
+                                                the steps below to manage it effectively.</strong></p>
+                                    </div>
+
+                                    <h2>1. Confirm the Diagnosis</h2>
+                                    <ul>
+                                        <li>Ensure that the white spots are not part of the natural pattern or an
+                                            unrelated
+                                            condition.</li>
+                                        <li>If unsure, consult with an expert (veterinarian or aquarium professional).
+                                        </li>
+                                    </ul>
+
+                                    <h2>2. Quarantine the Affected Fish</h2>
+                                    <ul>
+                                        <li>Move the affected fish to a separate quarantine tank to prevent the spread
+                                            of
+                                            the disease.</li>
+                                        <li>Ensure the quarantine tank has proper water conditions (temperature, pH,
+                                            salinity, etc.).</li>
+                                    </ul>
+
+                                    <h2>3. Adjust Water Conditions</h2>
+                                    <ul>
+                                        <li><strong>Increase Temperature:</strong> Raise the water temperature to about
+                                            28-30°C (82-86°F) to speed up the life cycle of the parasite.</li>
+                                        <li><strong>Increase Aeration:</strong> Ensure proper oxygenation to reduce
+                                            stress
+                                            on the fish.</li>
+                                    </ul>
+
+                                    <h2>4. Treat the Disease</h2>
+                                    <ul>
+                                        <li>Use an <strong>anti-Ich medication</strong> specifically designed for white
+                                            spot
+                                            disease.</li>
+                                        <li>Follow the manufacturer's instructions carefully regarding dosage and
+                                            treatment
+                                            duration.</li>
+                                    </ul>
+
+                                    <h2>5. Monitor the Fish’s Health</h2>
+                                    <ul>
+                                        <li>Observe the affected fish for signs of improvement or worsening of symptoms.
+                                        </li>
+                                        <li>Look for additional symptoms like lethargy, loss of appetite, or abnormal
+                                            swimming behavior.</li>
+                                    </ul>
+
+                                    <h2>6. Improve Water Quality</h2>
+                                    <ul>
+                                        <li>Perform a partial water change (25-30%) in both the quarantine and main
+                                            tanks to
+                                            reduce parasite load.</li>
+                                        <li>Regularly test water parameters (ammonia, nitrites, nitrates, pH) to ensure
+                                            optimal conditions.</li>
+                                    </ul>
+
+                                    <h2>7. Follow Up</h2>
+                                    <ul>
+                                        <li>After the treatment period, evaluate whether the white spots are gone.</li>
+                                        <li>If necessary, repeat treatment or consult an expert.</li>
+                                        <li>Gradually acclimate the recovered fish back into the main tank, ensuring
+                                            that
+                                            water parameters are similar between tanks.</li>
+                                    </ul>
+
+                                    <h2>8. Prevent Future Outbreaks</h2>
+                                    <ul>
+                                        <li>Clean and disinfect all equipment (nets, decorations, filters) that came
+                                            into
+                                            contact with the infected fish.</li>
+                                        <li>Quarantine new fish for at least 2-3 weeks before introducing them to the
+                                            main
+                                            tank.</li>
+                                        <li>Maintain good tank hygiene by performing regular water changes and
+                                            monitoring
+                                            water quality.</li>
+                                    </ul>
+
+                                    <div class="next-steps">
+                                        <p><strong>By following these steps, you'll help ensure the recovery of your
+                                                fish
+                                                and prevent further outbreaks.</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -136,9 +239,7 @@
     <!-- Template Javascript -->
     <script src="/js/main2.js"></script>
     @include('modal.logout')
-    <script>
-        
-    </script>
+    <script></script>
     @if (session()->pull('successAddFish'))
         <script>
             setTimeout(() => {
@@ -219,6 +320,87 @@
         </script>
         {{ session()->forget('errorDelete') }}
     @endif
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const imagePath = "{{ $detections->imagePath ?? '' }}"; // Retrieve image path from Laravel variable
+            const imageContainer = document.getElementById("image-container"); // The container to display the image
+            const maxRetries = 3; // Maximum number of retries
+            const retryDelay = 5000; // Delay in milliseconds between retries
+            let retries = 0;
+
+            function fetchImageWithRetry() {
+                fetch('http://localhost:5000/show_results')
+                    .then(response => response.json())
+                    .then(data => {
+                        imgSlice = imagePath.split("/")
+                        console.log(imgSlice)
+                        if (data.images && data.images.includes(imgSlice[3])) {
+                            imgSlice = imagePath.split("/")
+                            console.log(`Image ${imgSlice[2]} is present in the results.`);
+
+                            // Create an image element
+                            const img = document.getElementById("imgResult");
+                            img.src = `http://localhost:5000/display_image/${imgSlice[3]}`;
+                            img.alt = "Detected White Spot Image";
+
+                            // Append the image to the container
+                            // imageContainer.appendChild(img); 
+                            document.getElementById('spinner').setAttribute("style", "opacity: 0 !important;");
+                            document.getElementById('spinner').removeAttribute("class");
+                            document.getElementById('spinner').setAttribute("class",
+                                "bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+                            );
+                            return;
+                        } else {
+                            console.log(`Image ${imagePath} is not found in the results.`);
+                            // imageContainer.innerHTML = "<p>Image not found in the results.</p>";
+                            retries++;
+                            if (retries < maxRetries) {
+                                setTimeout(fetchImageWithRetry, retryDelay);
+                            } else {
+                                console.log("Max retries reached. Could not fetch image.");
+                                document.getElementById('spinner').setAttribute("style",
+                                    "opacity: 0 !important;");
+                                document.getElementById('spinner').removeAttribute("class");
+                                document.getElementById('spinner').setAttribute("class",
+                                    "bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+                                );
+                                document.getElementById('resultText').innerHTML = "No White Spot Detected";
+                                document.getElementById('resultText').setAttribute("style",
+                                    "color: green !important;");
+
+                                document.getElementById('content2').setAttribute("style",
+                                    "opacity: 0 !important;");
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        retries++;
+                        console.error("Error fetching images:", error);
+
+                        // Retry with delay if maximum retries are not reached
+                        if (retries < maxRetries) {
+                            setTimeout(fetchImageWithRetry, retryDelay);
+                        } else {
+                            console.log("Max retries reached. Could not fetch image.");
+                            document.getElementById('spinner').setAttribute("style", "opacity: 0 !important;");
+                            document.getElementById('spinner').removeAttribute("class");
+                            document.getElementById('spinner').setAttribute("class",
+                                "bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+                            );
+                            document.getElementById('resultText').innerHTML = "No White Spot Detected";
+                                document.getElementById('resultText').setAttribute("style",
+                                    "color: green !important;");
+                            document.getElementById('content2').setAttribute("style",
+                                "opacity: 0 !important;");
+                        }
+                    });
+            }
+
+            // Start the first fetch attempt
+            fetchImageWithRetry();
+        });
+    </script>
 </body>
 
 </html>
