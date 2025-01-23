@@ -20,4 +20,5 @@ use Illuminate\Support\Facades\Route;
 Route::resource("/", WelcomeController::class);
 Route::get("/logout", [LogoutController::class, 'index']);
 Route::get('/user_home', [UserHomeController::class, 'index']);
+Route::get('/result', [UserDetectionController::class, 'callResult']);
 Route::resource("/user_detection", UserDetectionController::class);

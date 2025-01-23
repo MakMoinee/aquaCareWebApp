@@ -19,7 +19,7 @@
                     <div class="form-group text-dark mb-2">
                         <label for="remarks">Remarks: </label>
                         <br>
-                        <textarea name="remarks" id="" cols="30" rows="3" class="form-control"></textarea>
+                        <textarea required name="remarks" id="" cols="30" rows="3" class="form-control"></textarea>
                     </div>
                     <div class="form-group text-dark mb-2">
                         <a onclick="document.getElementById('mFile').click();">
@@ -70,6 +70,27 @@
                         Proceed</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="loadingModal" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="loadingModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loadingModalTitle">Processing</h5>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-3 mx-auto">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
         </div>
     </div>
 </div>

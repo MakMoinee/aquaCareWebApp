@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
+use function Laravel\Prompts\select;
+
 class UserDetectionController extends Controller
 {
     /**
@@ -28,8 +30,10 @@ class UserDetectionController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
 
+            $detectionResult = json_decode(DB::table('detection_results')->distinct()->get(), true);
 
-            return view('user.detection', ['detections' => $detections]);
+
+            return view('user.detection', ['detections' => $detections, 'userType' => $user, 'detectionResult' => $detectionResult]);
         }
         return redirect("/");
     }
@@ -111,13 +115,16 @@ class UserDetectionController extends Controller
             if (count($myArr) == 0) {
                 return redirect("/user_detection");
             }
-
-            
-            $this->callApi($myArr[0]->imagePath);
-
-
-
-            return view('user.result', ['detections' => $myArr[0]]);
+            $result = json_decode(DB::table('detection_results')->where('detectionID', '=', $id)->limit(1)->get(), true);
+            if (count($result) > 0) {
+            } else {
+                $this->callApi($myArr[0]->imagePath, $id);
+                sleep(5);
+                sleep(5);
+                $result = json_decode(DB::table('detection_results')->where('detectionID', '=', $id)->limit(1)->get(), true);    
+            }
+          
+            return view('user.result', ['detections' => $myArr[0], 'isFetch' => count($result) > 0 ? 1 : 0]);
         }
         return redirect("/");
     }
@@ -174,7 +181,29 @@ class UserDetectionController extends Controller
         return redirect("/");
     }
 
-    private function callApi(string $imagePath): void
+    public function callResult(Request $request)
+    {
+        if (session()->exists('users')) {
+            $user = session()->pull('users');
+            session()->put('users', $user);
+
+            if ($user['userType'] != 'user') {
+                return redirect("/");
+            }
+
+            $id = $request->query('id');
+
+            $result = json_decode(DB::table('detection_results')->where('detectionID', '=', $id)->limit(1)->get(), true);
+            if (count($result) > 0) {
+                return response()->json(['result' =>  $result[0]], 200);
+            } else {
+                return response()->json([], 404);
+            }
+        }
+        return redirect("/");
+    }
+
+    private function callApi(string $imagePath, int $id): void
     {
         $client = new Client();
         $response = $client->post('http://localhost:5000/detect', [
@@ -182,6 +211,10 @@ class UserDetectionController extends Controller
                 [
                     'name' => 'image',
                     'contents' => 'http://localhost:8443' . $imagePath . ''
+                ],
+                [
+                    'name' => 'id',
+                    'contents' => $id
                 ],
             ]
         ]);

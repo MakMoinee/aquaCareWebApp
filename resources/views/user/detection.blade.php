@@ -143,11 +143,25 @@
                                                         {{ $item->remarks }}
                                                     </td>
                                                     <td>
-                                                        <button class="btn btn-danger" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteFishModal"
-                                                            onclick="deleteFish({{ $item->detectionID }},'{{ $item->imagePath }}')">
-                                                            <img src="/delete.svg" alt="" srcset="">
-                                                        </button>
+                                                        @if ($userType == 'admin')
+                                                            <button class="btn btn-danger" data-bs-toggle="modal"
+                                                                data-bs-target="#deleteFishModal"
+                                                                onclick="deleteFish({{ $item->detectionID }},'{{ $item->imagePath }}')">
+                                                                <img src="/delete.svg" alt="" srcset="">
+                                                            </button>
+                                                        @else
+                                                            @foreach ($detectionResult as $d)
+                                                                @if ($d['detectionID'] == $item->detectionID)
+                                                                    <button class="btn btn-danger"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#deleteFishModal"
+                                                                        onclick="deleteFish({{ $item->detectionID }},'{{ $item->imagePath }}')">
+                                                                        <img src="/delete.svg" alt=""
+                                                                            srcset="">
+                                                                    </button>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
                                                     </td>
                                                     <td class="text-center"></td>
                                                 </tr>
@@ -186,6 +200,9 @@
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i
             class="bi bi-arrow-up"></i></a>
 
+    <button id="btnShowLoading" class="btn btn-primary invisible" type="button" data-bs-toggle="modal"
+        data-bs-target="#loadingModal"></button>
+
 
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -202,6 +219,8 @@
     @include('modal.userdetect')
     <script>
         function startDetect(id) {
+            let btnShowLoading = document.getElementById('btnShowLoading');
+            btnShowLoading.click();
             window.location.href = `/user_detection/${id}`;
         }
 

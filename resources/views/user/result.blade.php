@@ -225,7 +225,7 @@
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
-
+    <input type="hidden" name="isFetch" value="{{ $isFetch }}" id="isFetch" class="invisible">
 
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -322,11 +322,30 @@
     @endif
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            const did = "{{ $detections->detectionID ?? 0 }}"
             const imagePath = "{{ $detections->imagePath ?? '' }}"; // Retrieve image path from Laravel variable
             const imageContainer = document.getElementById("image-container"); // The container to display the image
             const maxRetries = 3; // Maximum number of retries
-            const retryDelay = 5000; // Delay in milliseconds between retries
+            const retryDelay = 2000; // Delay in milliseconds between retries
             let retries = 0;
+            let retryCount = 0;
+            let isFetch = "";
+
+            function fetchResult() {
+                fetch(`/result?id=${did}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        try {
+                            console.log(data.result.result);
+                            if (data.result.result) {
+                                isFetch = data.result.result;
+                            }
+                        } catch (e) {
+
+                        }
+                    })
+                    .catch(error => {});
+            }
 
             function fetchImageWithRetry() {
                 fetch('http://localhost:5000/show_results')
@@ -354,10 +373,7 @@
                         } else {
                             console.log(`Image ${imagePath} is not found in the results.`);
                             // imageContainer.innerHTML = "<p>Image not found in the results.</p>";
-                            retries++;
-                            if (retries < maxRetries) {
-                                setTimeout(fetchImageWithRetry, retryDelay);
-                            } else {
+                            if (isFetch != "") {
                                 console.log("Max retries reached. Could not fetch image.");
                                 document.getElementById('spinner').setAttribute("style",
                                     "opacity: 0 !important;");
@@ -365,13 +381,53 @@
                                 document.getElementById('spinner').setAttribute("class",
                                     "bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
                                 );
-                                document.getElementById('resultText').innerHTML = "No White Spot Detected";
+                                document.getElementById('resultText').innerHTML = "Not Fish";
                                 document.getElementById('resultText').setAttribute("style",
                                     "color: green !important;");
 
                                 document.getElementById('content2').setAttribute("style",
                                     "opacity: 0 !important;");
+                            } else {
+                                retries++;
+                                if (retries < maxRetries) {
+                                    setTimeout(fetchResult, retryDelay);
+                                    setTimeout(fetchImageWithRetry, retryDelay);
+                                } else {
+                                    let isFetchData = document.getElementById('isFetch').value;
+                                    if (isFetchData === "1") {
+
+                                        console.log("Max retries reached. Could not fetch image.");
+                                        document.getElementById('spinner').setAttribute("style",
+                                            "opacity: 0 !important;");
+                                        document.getElementById('spinner').removeAttribute("class");
+                                        document.getElementById('spinner').setAttribute("class",
+                                            "bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+                                        );
+                                        document.getElementById('resultText').innerHTML = "Not Fish";
+                                        document.getElementById('resultText').setAttribute("style",
+                                            "color: green !important;");
+
+                                        document.getElementById('content2').setAttribute("style",
+                                            "opacity: 0 !important;");
+                                    } else {
+                                        console.log("Max retries reached. Could not fetch image.");
+                                        document.getElementById('spinner').setAttribute("style",
+                                            "opacity: 0 !important;");
+                                        document.getElementById('spinner').removeAttribute("class");
+                                        document.getElementById('spinner').setAttribute("class",
+                                            "bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+                                        );
+                                        document.getElementById('resultText').innerHTML =
+                                            "No White Spot Detected";
+                                        document.getElementById('resultText').setAttribute("style",
+                                            "color: green !important;");
+
+                                        document.getElementById('content2').setAttribute("style",
+                                            "opacity: 0 !important;");
+                                    }
+                                }
                             }
+
                         }
                     })
                     .catch(error => {
@@ -389,16 +445,18 @@
                                 "bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
                             );
                             document.getElementById('resultText').innerHTML = "No White Spot Detected";
-                                document.getElementById('resultText').setAttribute("style",
-                                    "color: green !important;");
+                            document.getElementById('resultText').setAttribute("style",
+                                "color: green !important;");
                             document.getElementById('content2').setAttribute("style",
                                 "opacity: 0 !important;");
                         }
                     });
             }
 
-            // Start the first fetch attempt
+            fetchResult();
             fetchImageWithRetry();
+
+
         });
     </script>
 </body>
