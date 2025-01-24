@@ -27,6 +27,7 @@ class UserDetectionController extends Controller
             }
 
             $detections = DB::table('detections')
+                ->where('userID', '=', $user['userID'])
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
 
@@ -119,9 +120,9 @@ class UserDetectionController extends Controller
             if (count($result) > 0) {
             } else {
                 $this->callApi($myArr[0]->imagePath, $id);
-                $result = json_decode(DB::table('detection_results')->where('detectionID', '=', $id)->limit(1)->get(), true);    
+                $result = json_decode(DB::table('detection_results')->where('detectionID', '=', $id)->limit(1)->get(), true);
             }
-          
+
             return view('user.result', ['detections' => $myArr[0], 'isFetch' => count($result) > 0 ? 1 : 0]);
         }
         return redirect("/");
