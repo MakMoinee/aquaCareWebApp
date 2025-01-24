@@ -119,8 +119,6 @@ class UserDetectionController extends Controller
             if (count($result) > 0) {
             } else {
                 $this->callApi($myArr[0]->imagePath, $id);
-                sleep(5);
-                sleep(5);
                 $result = json_decode(DB::table('detection_results')->where('detectionID', '=', $id)->limit(1)->get(), true);    
             }
           

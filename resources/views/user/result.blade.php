@@ -325,7 +325,7 @@
             const did = "{{ $detections->detectionID ?? 0 }}"
             const imagePath = "{{ $detections->imagePath ?? '' }}"; // Retrieve image path from Laravel variable
             const imageContainer = document.getElementById("image-container"); // The container to display the image
-            const maxRetries = 3; // Maximum number of retries
+            const maxRetries = 16; // Maximum number of retries
             const retryDelay = 2000; // Delay in milliseconds between retries
             let retries = 0;
             let retryCount = 0;
