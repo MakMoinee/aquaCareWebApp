@@ -219,8 +219,6 @@
     @include('modal.userdetect')
     <script>
         function startDetect(id) {
-            let btnShowLoading = document.getElementById('btnShowLoading');
-            btnShowLoading.click();
             window.location.href = `/user_detection/${id}`;
         }
 
